@@ -1,9 +1,10 @@
 import "dotenv/config";
-import mongoose, { Connection } from "mongoose";
+import mongoose, { Connection, ConnectionOptions } from "mongoose";
 
 export default function connect(): void {
-  const MONGODB_URL = process.env.MONGODB as string;
-  const MONGODB_OPTS = {
+  const MONGODB_URL: string = process.env.MONGODB as string;
+  const MONGODB_OPTS: ConnectionOptions = {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   };

@@ -1,17 +1,40 @@
-import express, { Router, Request, Response } from "express";
+import express, { Router, Request, Response, NextFunction } from "express";
+import { controller, authenticate } from "../controllers";
+import {
+  getAllUsers,
+  getUserById,
+  createUser
+} from "../controllers/user.controller";
 
 const router: Router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  console.log("GET USERS");
-});
+router.get(
+  "/",
+  authenticate,
+  controller(
+    getAllUsers,
+    (request: Request, response: Response, next: NextFunction) => []
+  )
+);
 
-router.get("/:id?", (req: Request, res: Response) => {
-  console.log("GET USER BY ID");
-});
+router.get(
+  "/:id?",
+  authenticate,
+  controller(
+    getUserById,
+    (request: Request, response: Response, next: NextFunction) => [
+      request.params.id
+    ]
+  )
+);
 
-router.post("/", (req: Request, res: Response) => {
-  console.log("CREATE USER");
-});
+router.post(
+  "/",
+  authenticate,
+  controller(
+    createUser,
+    (request: Request, response: Response, next: NextFunction) => [request.body]
+  )
+);
 
 export default router;
