@@ -14,7 +14,7 @@ async function authenticateUser(username: string, password: string) {
 
   if (comparePassword(username, password, user.password)) {
     return {
-      token: jwt.sign({ user }, process.env.JWT_SECRET as string)
+      token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string)
     };
   } else {
     throw new Error("Password and/or Username is wrong");

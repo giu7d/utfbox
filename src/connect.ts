@@ -6,7 +6,8 @@ export default function connect(): void {
   const MONGODB_OPTS: ConnectionOptions = {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: true
   };
 
   mongoose.connect(MONGODB_URL, MONGODB_OPTS);

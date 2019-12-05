@@ -1,5 +1,6 @@
 import { User, IUser } from "../models/user.model";
 import { hashPassword, getInitials } from "../utils";
+import { createRootDirectory } from "./directory.controller";
 
 async function getAllUsers() {
   const users = await User.find()
@@ -33,11 +34,30 @@ async function createUser(user: IUser) {
 
   try {
     const userSchema = new User(userInterface);
-    userSchema.save();
+
+    await userSchema.validate();
+    await userSchema.save();
+
+    await createRootDirectory(userSchema.id);
+
     return userSchema.id;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
-export { getAllUsers, getUserById, createUser };
+async function updateUser(userId: string, updatedObject: Object) {
+  try {
+    await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: updatedObject },
+      {
+        runValidators: true
+      }
+    );
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export { getAllUsers, getUserById, createUser, updateUser };
