@@ -4,6 +4,7 @@ import mongoose, { Connection, ConnectionOptions } from "mongoose";
 export default function connect(): void {
   const MONGODB_URL: string = process.env.MONGODB as string;
   const MONGODB_OPTS: ConnectionOptions = {
+    dbName: "utfbox_db",
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

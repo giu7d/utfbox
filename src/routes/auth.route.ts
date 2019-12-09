@@ -9,7 +9,7 @@ router.post(
   controller(
     authenticateUser,
     (request: Request, response: Response, next: NextFunction) => [
-      request.body.username,
+      request.body.email,
       request.body.password
     ]
   )

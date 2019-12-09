@@ -30,7 +30,6 @@ router.get(
 
 router.post(
   "/",
-  authenticate,
   controller(
     createUser,
     (request: Request, response: Response, next: NextFunction) => [request.body]

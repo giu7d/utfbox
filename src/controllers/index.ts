@@ -17,6 +17,7 @@ const controller = (promise: Function, params: Function) => async (
     const result = await promise(...boundParams);
     return response.status(200).json(result);
   } catch (error) {
+    console.error(error);
     return response.status(500).json({
       message: error.message
     });
@@ -40,7 +41,7 @@ function authenticate(
 }
 
 function authenticateSocket(socket: Socket, next: Function) {
-  const { token } = socket.request.headers;
+  const token = socket.request.headers["authorization"];
 
   if (!token) {
     socket.error(NO_TOKEN_PROVIDED);

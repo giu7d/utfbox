@@ -1,16 +1,16 @@
 import crypto from "crypto";
 
-const hashPassword = (username: string, password: string) =>
+const hashPassword = (email: string, password: string) =>
   crypto
     .createHmac("sha256", password)
-    .update(username, "utf8")
+    .update(email, "utf8")
     .digest("hex");
 
 const comparePassword = (
-  username: string,
+  email: string,
   password: string,
   savedHashedPassword: string
-) => hashPassword(username, password) === savedHashedPassword;
+) => hashPassword(email, password) === savedHashedPassword;
 
 const getInitials = (firstName: string, lastName: string) =>
   `${firstName[0]} ${lastName[0]}`.toUpperCase();

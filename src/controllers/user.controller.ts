@@ -24,12 +24,12 @@ async function getUserById(id: string) {
 }
 
 async function createUser(user: IUser) {
-  const { firstName, lastName, username, password } = user;
+  const { firstName, lastName, email, password } = user;
 
   const userInterface = {
     ...user,
     initials: getInitials(firstName, lastName),
-    password: hashPassword(username, password)
+    password: hashPassword(email, password)
   };
 
   try {
